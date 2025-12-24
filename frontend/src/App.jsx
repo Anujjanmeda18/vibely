@@ -28,7 +28,7 @@ import getAllNotifications from "./hooks/getAllNotifications.jsx";
 import { setNotificationData } from "./redux/userSlice.js";
 import Notification from "./pages/Notification.jsx";
 
-export const serverUrl = "srv-d562ar1r0fns73d6g180";
+export const serverUrl = "https://vibely-backend-0joj.onrender.com";
 
 function App() {
   useCurrentUser(); // ← proper hook
