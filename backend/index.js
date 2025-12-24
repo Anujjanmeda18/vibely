@@ -12,7 +12,8 @@ import messageRouter from "./routes/message.route.js";
 import { app, server } from "./socket.js";
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000
+;
 app.use(
   cors({
     origin: "https://vibely-15ul.onrender.com",
