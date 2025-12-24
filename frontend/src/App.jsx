@@ -28,7 +28,7 @@ import getAllNotifications from "./hooks/getAllNotifications.jsx";
 import { setNotificationData } from "./redux/userSlice.js";
 import Notification from "./pages/Notification.jsx";
 
-export const serverUrl = "http://localhost:8000";
+export const serverUrl = "srv-d562ar1r0fns73d6g180";
 
 function App() {
   useCurrentUser(); // ← proper hook
