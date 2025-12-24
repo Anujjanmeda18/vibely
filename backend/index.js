@@ -15,7 +15,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://vibely-15ul.onrender.com",
     credentials: true,
   })
 );
