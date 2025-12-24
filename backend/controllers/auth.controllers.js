@@ -35,8 +35,8 @@ export const signUp = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
-      secure: false,
-      sameSite: "Strict",
+      secure: true,        // ✅ Changed false → true
+      sameSite: "none",    // ✅ Changed "Strict" → "none"
     });
 
     return res.status(201).json(user);
@@ -65,8 +65,8 @@ export const signIn = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
-      secure: false,
-      sameSite: "Strict",
+      secure: true,        // ✅ Changed false → true
+      sameSite: "none",    // ✅ Changed "Strict" → "none"
     });
 
     return res.status(200).json(user);
@@ -77,13 +77,18 @@ export const signIn = async (req, res) => {
 
 export const signOut = async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,        // ✅ Add this
+      sameSite: "none"     // ✅ Add this
+    });
     return res.status(200).json({ message: "sign out successfully" });
   } catch (error) {
     return res.status(500).json({ message: `signout error ${error}` });
   }
 };
 
+// ... rest of your functions stay the same ...
 export const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
