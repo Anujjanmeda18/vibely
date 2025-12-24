@@ -33,10 +33,10 @@ function LeftHome() {
 
   if (!userData) return null;
 
-  const hasUnread =
-    notificationData &&
-    notificationData.length > 0 &&
-    notificationData.some((n) => n.isRead === false);
+const hasUnread =
+  Array.isArray(notificationData) &&
+  notificationData.length > 0 &&
+  notificationData.some((n) => n.isRead === false);
 
   return (
     <aside className="hidden lg:flex w-full h-screen bg-white/90 border-r border-gray-200 backdrop-blur-xl flex flex-col shadow-sm">

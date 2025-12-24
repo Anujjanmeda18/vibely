@@ -127,7 +127,7 @@ function StoryCard({ storyData }) {
                 
                 {storyData?.viewers?.length > 0 && (
                   <div className="flex items-center -space-x-2 ml-1">
-                    {storyData?.viewers?.slice(0, 3).map((viewer, index) => (
+                    { Array.isArray(storyData?.viewers) &&storyData?.viewers?.slice(0, 3).map((viewer, index) => (
                       <div
                         key={viewer._id || index}
                         className="w-6 h-6 border-2 border-black rounded-full overflow-hidden bg-gray-100"
@@ -179,7 +179,7 @@ function StoryCard({ storyData }) {
             </div>
 
             <div className="w-full max-h-[calc(100%-48px)] flex flex-col gap-3 overflow-auto pb-2">
-              {storyData?.viewers?.length > 0 ? (
+              {Array.isArray(storyData?.viewers) && storyData?.viewers?.length > 0 ? (
                 storyData?.viewers?.map((viewer, index) => (
                   <div
                     key={viewer._id || index}

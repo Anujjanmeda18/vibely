@@ -135,7 +135,7 @@ function Feed() {
   }, [socket, postData, notificationData, dispatch]);
 
   const hasUnread =
-    notificationData &&
+    Array.isArray(notificationData) &&
     notificationData.length > 0 &&
     notificationData.some((n) => n.isRead === false);
 
@@ -176,16 +176,17 @@ function Feed() {
             />
           )}
 
-          {storyData?.allStories
-            ?.filter((story) => story.author?._id !== userData?._id)
-            .map((story) => (
-              <StoryDp
-                key={story._id}
-                userName={story.author?.userName}
-                ProfileImage={story.author?.profileImage}
-                story={story}
-              />
-            ))}
+          {Array.isArray(storyData?.allStories) &&
+            storyData.allStories
+              .filter((story) => story.author?._id !== userData?._id)
+              .map((story) => (
+                <StoryDp
+                  key={story._id}
+                  userName={story.author?.userName}
+                  ProfileImage={story.author?.profileImage}
+                  story={story}
+                />
+              ))}
         </div>
       </div>
 
@@ -207,8 +208,6 @@ function Feed() {
           {postData?.map((post) => (
             <Post key={post._id} post={post} />
           ))}
-
-          
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     userData: null,
-    suggestedUsers: null,
+    suggestedUsers: [],
     profileData: null,
     following: [],
     searchData: null,

@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const storySlice = createSlice({
   name: "post",
   initialState: {
-    storyData: null,
-    storyList: null,
-    currentUserStory: null,
-    activeStory: null, 
+    storyData: { allStories: [] }, // ← Object with array
+    storyList: [], // ← Empty array
+    currentUserStory: null, // ← OK as null
+    activeStory: null,
   },
   reducers: {
     setStoryData: (state, action) => {
@@ -24,6 +24,10 @@ const storySlice = createSlice({
   },
 });
 
-export const { setStoryData, setStoryList, setCurrentUserStory , setActiveStory} =
-  storySlice.actions;
+export const {
+  setStoryData,
+  setStoryList,
+  setCurrentUserStory,
+  setActiveStory,
+} = storySlice.actions;
 export default storySlice.reducer;
