@@ -142,8 +142,19 @@ function Feed() {
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative text-slate-900">
       {/* Mobile top bar - ONLY SHOWS ON MOBILE */}
+      {/* Mobile top bar - ONLY SHOWS ON MOBILE */}
       <div className="w-full h-[70px] flex items-center justify-between px-5 lg:hidden bg-white border-b border-slate-200 sticky top-0 z-40">
-        <img src={logo} alt="Vibely" className="w-[72px]" />
+        {/* Left: Welcome text */}
+        <div className="flex flex-col">
+          <span className="text-[10px] font-medium text-blue-600 uppercase tracking-wide">
+            Welcome
+          </span>
+          <span className="text-xs text-gray-900 font-medium">
+            Curate your <span className="text-blue-600">vibe</span>.
+          </span>
+        </div>
+
+        {/* Right: Notification + Message icons */}
         <div className="flex items-center gap-3">
           <button
             type="button"
