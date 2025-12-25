@@ -90,7 +90,7 @@ MONGO_URI=your_mongodb_uri
 
 JWT_SECRET=your_jwt_secret
 
-CLIENT_URL=https://your-frontend-domain.com
+CLIENT_URL=[https://your-frontend-domain.com](https://vibely-two.vercel.app/signin)
 
 RESEND_API_KEY=your_resend_api_key
 
