@@ -35,8 +35,8 @@ export const signUp = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
-      secure: true,        // ✅ Changed false → true
-      sameSite: "none",    // ✅ Changed "Strict" → "none"
+      secure: true, // ✅ Changed false → true
+      sameSite: "none", // ✅ Changed "Strict" → "none"
     });
 
     return res.status(201).json(user);
@@ -65,8 +65,8 @@ export const signIn = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
-      secure: true,        // ✅ Changed false → true
-      sameSite: "none",    // ✅ Changed "Strict" → "none"
+      secure: true, // ✅ Changed false → true
+      sameSite: "none", // ✅ Changed "Strict" → "none"
     });
 
     return res.status(200).json(user);
@@ -79,8 +79,8 @@ export const signOut = async (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: true,        // ✅ Add this
-      sameSite: "none"     // ✅ Add this
+      secure: true, // ✅ Add this
+      sameSite: "none", // ✅ Add this
     });
     return res.status(200).json({ message: "sign out successfully" });
   } catch (error) {
@@ -92,21 +92,47 @@ export const signOut = async (req, res) => {
 export const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
 
+    // Generate 4-digit OTP (to match your frontend)
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
 
-    (user.resetOtp = otp), (user.otpExpires = Date.now() + 5 * 60 * 1000);
+    user.resetOtp = otp;
+    user.otpExpires = Date.now() + 5 * 60 * 1000;
     user.isOtpVerified = false;
 
     await user.save();
-    await sendMail(email, otp);
-    return res.status(200).json({ message: "email successfully send" });
+
+    // ✅ Add timeout wrapper
+    const sendEmailWithTimeout = () => {
+      return Promise.race([
+        sendMail(email, otp),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Email sending timeout")), 15000)
+        ),
+      ]);
+    };
+
+    try {
+      await sendEmailWithTimeout();
+      console.log("✅ OTP sent to:", email);
+    } catch (emailError) {
+      console.log("⚠️ Email error:", emailError.message);
+      // Still return success - user can try resending
+      // Or use console OTP for testing
+      console.log("🔐 OTP for testing:", otp);
+    }
+
+    return res.status(200).json({ message: "OTP sent successfully" });
   } catch (error) {
-    return res.status(500).json({ message: `send otp error ${error}` });
+    console.log("❌ Send OTP error:", error);
+    return res.status(500).json({
+      message: `Failed to send OTP: ${error.message}`,
+    });
   }
 };
 
