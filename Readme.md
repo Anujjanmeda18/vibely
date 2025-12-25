@@ -81,11 +81,17 @@ cd vibely
 
 ### 2. Environment Variables
 Create `.env` files in both `frontend` and `backend` with the required values.
+
 **Backend `.env` example:**
+
 PORT=5000
+
 MONGO_URI=your_mongodb_uri
+
 JWT_SECRET=your_jwt_secret
+
 CLIENT_URL=https://your-frontend-domain.com
+
 RESEND_API_KEY=your_resend_api_key
 
 **Frontend `.env` example (Vite/CRA style):**
