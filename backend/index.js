@@ -14,12 +14,12 @@ dotenv.config();
 
 const PORT = process.env.PORT || 10000
 ;
-app.use(
-  cors({
-    origin: "https://vibely-15ul.onrender.com",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "https://vibely-two.vercel.app",
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+}));
+
 
 app.use(express.json());
 app.use(cookieParser());

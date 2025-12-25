@@ -6,14 +6,15 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://vibely-15ul.onrender.com",
+    origin: process.env.FRONTEND_URL || "https://vibely-two.vercel.app", // ✅ Change this!
     methods: ["GET", "POST"],
+    credentials: true, // ✅ Add this for cookies
   },
 });
 const userSocketMap = {};
-export const getSocketId=(receiverId)=>{
-return userSocketMap[receiverId]
-}
+export const getSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+};
 io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   if (userId != undefined) {
