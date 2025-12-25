@@ -97,20 +97,19 @@ function MessageArea() {
     if (!socket) return;
 
     const handleNewMessage = (mess) => {
+      console.log("📩 New message received:", mess); // Debug log
+
       if (
-        !selectedUser?._id ||
-        (mess.sender !== selectedUser._id && mess.receiver !== selectedUser._id)
+        selectedUser?._id &&
+        (mess.sender === selectedUser._id || mess.receiver === selectedUser._id)
       ) {
-        return;
+        dispatch(setMessages([...safeMessages, mess]));
       }
-      dispatch((prevDispatch) =>
-        setMessages((prev) => [...(Array.isArray(prev) ? prev : []), mess])
-      );
     };
 
     socket.on("newMessage", handleNewMessage);
     return () => socket.off("newMessage", handleNewMessage);
-  }, [socket, selectedUser?._id, dispatch]);
+  }, [socket, selectedUser?._id, safeMessages, dispatch]);
 
   if (!selectedUser) {
     return (
